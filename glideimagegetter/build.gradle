@@ -1,0 +1,62 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+def version_code = 6
+def version_name = "1.0.5"
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
+
+    defaultConfig {
+        minSdkVersion 7
+        targetSdkVersion 30
+        versionCode version_code
+        versionName version_name
+
+        resourcePrefix "zhou_glide_"
+
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.zzhoujay.richtext:richtext:2.5.+'
+//    compile project(':richtext')
+}
+
+publish {
+
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    //bintray.com用户名
+    userOrg = properties.getProperty("bintray.user")
+    //jcenter上的路径
+    groupId = "com.zzhoujay.glideimagegetter"
+    //项目名称
+    artifactId = 'glideimagegetter'
+    //版本号
+    publishVersion = version_name
+    //描述，不重要
+    desc = 'RichText的Glide图片加载库的插件'
+    //网站，不重要
+    website = 'https://github.com/zzhoujay/RichTex'
+
+    bintrayUser = properties.getProperty("bintray.user")
+    bintrayKey = properties.getProperty("bintray.apikey")
+
+}
