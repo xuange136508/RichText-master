@@ -107,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
 //        RichText.from(test1).into(textView1);
 
 
-        RichText.from(test3, true).into(textView1);
-        RichText.from(test4, true).into(textView);
+//        RichText.from(test3, true).into(textView1);
+//        RichText.from(test4, true).into(textView);
         RichText.from(xx, true).into(textView2);
 //        textView.setText(Html.fromHtml(list_test, Html.FROM_HTML_MODE_LEGACY));
     }
@@ -146,9 +146,16 @@ public class MainActivity extends AppCompatActivity {
             "</ol>";
 
 
-    String xx = "<p>\n" +
-            "    <span style=\"background-color: rgb(247, 150, 70);\">a</span>ha<span style=\"background-color: rgb(75, 172, 198);\">sh<span style=\"background-color: rgb(75, 172, 198); color: rgb(195, 214, 155);\">as</span>a</span><span style=\"color: rgb(147, 137, 83);\"><span style=\"background-color: rgb(75, 172, 198);\">按</span><span style=\"background-color: rgb(192, 80, 77);\">时</span></span><span style=\"background-color: rgb(192, 80, 77);\">发</span>放\n" +
-            "</p>";
+    String xx = "<p>" +
+//            "<span style=\"background-color: rgb(247, 150, 70);\">a</span>ha" +
+//            "<span style=\"background-color: rgb(75, 172, 198);\">sh" +
+//            "<span style=\"background-color: rgb(75, 172, 198); color: rgb(195, 214, 155);\">as</span>a</span>" +
+            "<span style=\"color: rgb(147, 137, 83);\"><span style=\"background-color: rgb(75, 172, 198);\">按</span>" +
+            "<span style=\"background-color: rgb(192, 80, 77);\">时</span></span><span style=\"background-color: rgb(192, 80, 77);\">发</span>" +
+//            "<span>操</span>" +
+            "放</p>";
+
+    String xx1 = "<p><span style=\"color: rgb(155, 187, 89);\">啊<span style=\"color: rgb(79, 129, 189);\">撒撒<span style=\"color: rgb(247, 150, 70);\">发生</span>发是</span>否</span></p>";
 
 
     String test = "<p><span style=\"font-size:16px;\"><span style=\"color:#333333;\"><span style=\"font-family: PingFangSC-Regular, &quot;PingFang SC&quot;, sans-serif;\"><strong>必须添加辅食啦！</strong></span></span><span style=\"font-family: PingFangSC-Regular, &quot;PingFang SC&quot;, sans-serif; color: rgb(122, 122, 122);\">每天</span><span style=\"font-family: ArialMT, Arial, sans-serif; color: rgb(122, 122, 122);\">2</span><span style=\"font-family: PingFangSC-Regular, &quot;PingFang SC&quot;, sans-serif; color: rgb(122, 122, 122);\">顿！错过辅食添加期，会严重影响宝宝发育！</span></span></p>";

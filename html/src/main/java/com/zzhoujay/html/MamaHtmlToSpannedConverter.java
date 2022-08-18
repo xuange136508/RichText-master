@@ -269,11 +269,10 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
         endBlockElement(text);
     }
 
+    /**
+     * 返回最后一个span
+     * */
     private static <T> T getLast(Spanned text, Class<T> kind) {
-        /*
-         * This knows that the last returned object from getSpans()
-         * will be the most recently added.
-         */
         T[] objs = text.getSpans(0, text.length(), kind);
 
         if (objs.length == 0) {
@@ -283,41 +282,46 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
         }
     }
 
+
+    /**
+     * 设置span属性
+     * */
     private static void setSpanFromMark(Spannable text, Object mark, Object... spans) {
         int where = text.getSpanStart(mark);
         int len = text.length();
         boolean isHandle = false;
         boolean needRemove = true;
-        if(mark instanceof Foreground){
-            if(((Foreground) mark).isStub){
+        //移除自添加的前景色
+        if (mark instanceof Foreground) {
+            if (((Foreground) mark).isStub) {
                 needRemove = false;
             }
         }
-        // TODO: 2022/6/12 打印一波
         //Foreground[] objs1 = text.getSpans(0, text.length(), Foreground.class);
-        if(needRemove) {
+        if (needRemove) {
             text.removeSpan(mark);
         }
         //Foreground[] objs2 = text.getSpans(0, text.length(), Foreground.class);
-        if(mark instanceof Foreground){
+        if (mark instanceof Foreground) {
             ForegroundColorSpan[] objsTest = text.getSpans(where, text.length(), ForegroundColorSpan.class);
             List<String> spanIndex = new ArrayList();
             boolean[] stateArray = new boolean[text.length()];
             for (Object objTest : objsTest) {
                 int startTest = text.getSpanStart(objTest);
                 int endTest = text.getSpanEnd(objTest);
-                Log.i("test","startTest="+startTest+" endTest="+endTest);
-                spanIndex.add(startTest+"-"+endTest);
+                Log.i("test", "startTest=" + startTest + " endTest=" + endTest);
+                spanIndex.add(startTest + "-" + endTest);
             }
             //Collections.sort(spanIndex);
-            if(spanIndex.size()>0){
+            if (spanIndex.size() > 0) {
                 List<String> resultArray = new ArrayList();
                 int tmpStart = where;
                 for (int i = 0; i < spanIndex.size(); i++) {
                     String[] posArray = spanIndex.get(i).split("-");
-                    // TODO: 2022/6/12 重新计算包含关系
+                    //  重新计算包含关系
                     int start = Integer.valueOf(posArray[0]);
                     int end = Integer.valueOf(posArray[1]);
+                    // 将span区间置为选中状态
                     for (int j = start; j < end; j++) {
                         stateArray[j] = true;
                     }
@@ -326,26 +330,28 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
                 int start = 0;
                 int end = 0;
                 boolean hasStart = false;
+                // 遍历区间数组
                 for (int i = where; i < stateArray.length; i++) {
-                    if(!stateArray[i] && (i!= stateArray.length-1)){
-                        if(!hasStart){
+                    if (!stateArray[i] && (i != stateArray.length - 1)) {
+                        //找到span初始位置
+                        if (!hasStart) {
                             start = i;
                             hasStart = true;
                         }
-                    }else{
-                        if(hasStart) {
-                            if((i == stateArray.length-1) && !stateArray[i]){
+                    } else {
+                        if (hasStart) {
+                            // 对span结束位置做边缘处理
+                            if ((i == stateArray.length - 1) && !stateArray[i]) {
                                 end = i + 1;
-                            }else{
+                            } else {
                                 end = i;
                             }
                             hasStart = false;
                             if (start != end) {
                                 for (Object span : spans) {
-                                    //isHandle = true;
-                                    //text.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                    //注意sapn不能复用需要重建
-                                    text.setSpan(new ForegroundColorSpan(((Foreground) mark).mForegroundColor), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    //注意：span不能复用需重建
+                                    text.setSpan(new ForegroundColorSpan(((Foreground) mark).mForegroundColor),
+                                            start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                                 }
                             }
                         }
@@ -354,6 +360,7 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
                 isHandle = true;
             }
         }
+        // 未处理的情况沿用之前处理方式
         if (where != len && !isHandle) {
             for (Object span : spans) {
                 text.setSpan(span, where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
