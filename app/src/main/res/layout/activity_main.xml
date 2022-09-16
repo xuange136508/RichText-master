@@ -18,7 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textIsSelectable="false"
-            android:background="#fff"/>
+            android:visibility="gone"
+            android:background="#fff"
+           />
 
         <TextView
             android:id="@+id/text1"
@@ -26,7 +28,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textIsSelectable="false"
-            android:background="#fff"/>
+            android:background="#fff"
+            android:visibility="gone"
+            />
 
         <TextView
             android:id="@+id/text2"

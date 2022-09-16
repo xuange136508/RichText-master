@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         final TextView textView2 = findViewById(R.id.text2);
 
 
-
         String test_text_2 = "<B>Start</B> <img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' />" +
                 "<img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' />" +
                 "<img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' />" +
@@ -113,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
 //        textView.setText(Html.fromHtml(list_test, Html.FROM_HTML_MODE_LEGACY));
     }
 
+
     //【新增表情、有序无序列表、背景颜色、斜体、删除线】
     //1 支持有序列表
     String test3 = "<ol><li>啊<i>是大</i></li><li>十分士<strong>大</strong>夫撒大苏打f</li><li>巅<strong>峰</strong>时代</li></ol>";
@@ -125,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
     //5 背景颜色
     String test7 = "<p>啊啊首发申其<span style=\"background-color: rgb(155, 187, 89);\">购法发噶</span>他嘎洒算<span style=\"background-color: rgb(247, 150, 70);\">法</span>\n" +
             "</p><p><span style=\"background-color: rgb(247, 150, 70);\">a</span>ha<span style=\"background-color: rgb(75, 172, 198);\">shasa按</span><span style=\"background-color: rgb(192, 80, 77);\">时发</span>放</p>";
+    //6 表情
+    String test8 = "<p>2342asda是\uD83D\uDE01我去饿</p>";
 
     //特别的有序列表
     String testSpec = "<ol class=\" list-paddingleft-2\">\n" +
@@ -158,11 +160,7 @@ public class MainActivity extends AppCompatActivity {
     String xx1 = "<p><span style=\"color: rgb(155, 187, 89);\">啊<span style=\"color: rgb(79, 129, 189);\">撒撒<span style=\"color: rgb(247, 150, 70);\">发生</span>发是</span>否</span></p>";
 
 
-    String test = "<p><span style=\"font-size:16px;\"><span style=\"color:#333333;\"><span style=\"font-family: PingFangSC-Regular, &quot;PingFang SC&quot;, sans-serif;\"><strong>必须添加辅食啦！</strong></span></span><span style=\"font-family: PingFangSC-Regular, &quot;PingFang SC&quot;, sans-serif; color: rgb(122, 122, 122);\">每天</span><span style=\"font-family: ArialMT, Arial, sans-serif; color: rgb(122, 122, 122);\">2</span><span style=\"font-family: PingFangSC-Regular, &quot;PingFang SC&quot;, sans-serif; color: rgb(122, 122, 122);\">顿！错过辅食添加期，会严重影响宝宝发育！</span></span></p>";
-    String test1 =   "<span style=\"font-size:16px;\"><span style=\"color:#666666;\">第一口</span><strong style=\"caret-color: rgb(51, 51, 51); color: rgb(51, 51, 51); font-family: PingFangSC-Regular, &quot;PingFang SC&quot;, sans-serif; font-size: 14px;\"><a href=\"https://www.baidu.com\"><span style=\"color:#4d9eff;\">高铁米粉</span></a></strong><span style=\"color:#666666;\">，辅食从一勺高铁米粉开始由一种到多种，由稀到稠。</span></span>";
-    String test2 =   "<p><span style=\"font-size:16px;\"><span style=\"color:#666666;\">第一口</span><strong style=\"caret-color: rgb(51, 51, 51); color: rgb(51, 51, 51); font-family: PingFangSC-Regular, &quot;PingFang SC&quot;, sans-serif; font-size: 14px;\"><a href=\"https://www.baidu.com\"><span style=\"color:#4d9eff;\">高铁米粉</span></a></strong><span style=\"color:#666666;\">，辅食从一勺高铁米粉开始由一种到多种，由稀到稠。</span></span></p>";
-
-    String testNew = "<p style=\"margin: 0px;  color: rgb(77, 222, 77); \">" +
+    String testNew1 = "<p style=\"margin: 0px;  color: rgb(77, 222, 77); \">" +
             "<span style=\"font-family: PingFangSC-Medium, &quot;PingFang SC Medium&quot;, &quot;PingFang SC&quot;, sans-serif; color: rgb(242, 113, 142);\">抱睡</span>" +
             "<span>你</span>" +
 
@@ -170,8 +168,6 @@ public class MainActivity extends AppCompatActivity {
             "<span>我</span>" +
             "<span>哇</span>" +
             "</p>";
-
-    //"<p style=\"margin: 0px;  color: rgb(77, 222, 77); \"><span style=\"font-family: PingFangSC-Medium, &quot;PingFang SC Medium&quot;, &quot;PingFang SC&quot;, sans-serif; color: rgb(242, 113, 142);\">抱睡</span><span>你</span><span style=\"font-family: PingFangSC-Medium, &quot;PingFang SC Medium&quot;, &quot;PingFang SC&quot;, sans-serif; color: rgb(242, 113, 142);\">睡眠倒退</span><span>我</span><span>哇</span></p>";
 
     String testNew2 =
 "<p style=\"\\&quot;color:\"><span style=\"color: rgb(79, 129, 189);\">抱睡</span><span style=\"color: rgb(178, 162, 199);\">你as<span style=\"color: rgb(31, 73, 125);\">d</span></span></p><p style=\"\\&quot;color:\"><span style=\"color: rgb(31, 73, 125);\">阿<span style=\"color: rgb(147, 137, 83);\">萨斯</span>发as<span style=\"color: rgb(146, 205, 220);\">f</span></span></p>";
