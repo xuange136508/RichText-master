@@ -82,13 +82,6 @@ public class MainActivity extends AppCompatActivity {
         final TextView textView2 = findViewById(R.id.text2);
 
 
-        String test_text_2 = "<B>Start</B> <img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' />" +
-                "<img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' />" +
-                "<img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' />" +
-                "<img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' />" +
-                "<img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><B>End</B>";
-
-
 //        RichText.from(html)
 //                .urlClick(new OnUrlClickListener() {
 //                    @Override
@@ -127,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
             "</p><p><span style=\"background-color: rgb(247, 150, 70);\">a</span>ha<span style=\"background-color: rgb(75, 172, 198);\">shasa按</span><span style=\"background-color: rgb(192, 80, 77);\">时发</span>放</p>";
     //6 表情
     String test8 = "<p>2342asda是\uD83D\uDE01我去饿</p>";
+    //7 图片(不支持)
+    String test9 = "<p><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg'/></p>";
 
     //特别的有序列表
     String testSpec = "<ol class=\" list-paddingleft-2\">\n" +
@@ -153,7 +148,8 @@ public class MainActivity extends AppCompatActivity {
 //            "<span style=\"background-color: rgb(75, 172, 198);\">sh" +
 //            "<span style=\"background-color: rgb(75, 172, 198); color: rgb(195, 214, 155);\">as</span>a</span>" +
             "<span style=\"color: rgb(147, 137, 83);\"><span style=\"background-color: rgb(75, 172, 198);\">按</span>" +
-            "<span style=\"background-color: rgb(192, 80, 77);\">时</span></span><span style=\"background-color: rgb(192, 80, 77);\">发</span>" +
+            "<span style=\"background-color: rgb(192, 80, 77);\">时</span></span>" +
+            "<span style=\"background-color: rgb(192, 80, 77);\">发</span>" +
 //            "<span>操</span>" +
             "放</p>";
 
