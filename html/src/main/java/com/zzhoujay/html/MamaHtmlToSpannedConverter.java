@@ -23,7 +23,6 @@ import android.text.style.SuperscriptSpan;
 import android.text.style.TypefaceSpan;
 import android.text.style.URLSpan;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 
 import com.zzhoujay.html.style.ZBulletSpan;
 import com.zzhoujay.html.style.ZCodeBlockSpan;
@@ -291,17 +290,18 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
         int len = text.length();
         boolean isHandle = false;
         boolean needRemove = true;
-        //移除自添加的前景色
+        // 设置完颜色后，移除自添加的前景色
         if (mark instanceof Foreground) {
             if (((Foreground) mark).isStub) {
                 needRemove = false;
             }
         }
-        //Foreground[] objs1 = text.getSpans(0, text.length(), Foreground.class);
-        if (needRemove) {
+        // 获取当前区间所有前景Span
+        Foreground[] objs1 = text.getSpans(0, text.length(), Foreground.class);
+//        if (needRemove) {
             text.removeSpan(mark);
-        }
-        //Foreground[] objs2 = text.getSpans(0, text.length(), Foreground.class);
+//        }
+        // step1：获取所有span的起始结束位置
         if (mark instanceof Foreground) {
             ForegroundColorSpan[] objsTest = text.getSpans(where, text.length(), ForegroundColorSpan.class);
             List<String> spanIndex = new ArrayList();
@@ -309,10 +309,10 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
             for (Object objTest : objsTest) {
                 int startTest = text.getSpanStart(objTest);
                 int endTest = text.getSpanEnd(objTest);
-                Log.i("test", "startTest=" + startTest + " endTest=" + endTest);
                 spanIndex.add(startTest + "-" + endTest);
+                // Log.i("test", "startTest=" + startTest + " endTest=" + endTest);
             }
-            //Collections.sort(spanIndex);
+            // step2：将带有前景色的区间位置记录下来
             if (spanIndex.size() > 0) {
                 List<String> resultArray = new ArrayList();
                 int tmpStart = where;
@@ -326,11 +326,10 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
                         stateArray[j] = true;
                     }
                 }
-
+                // step3：遍历区间数组,对未赋值的区间进行处理
                 int start = 0;
-                int end = 0;
+                int end;
                 boolean hasStart = false;
-                // 遍历区间数组
                 for (int i = where; i < stateArray.length; i++) {
                     if (!stateArray[i] && (i != stateArray.length - 1)) {
                         //找到span初始位置
@@ -347,9 +346,9 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
                                 end = i;
                             }
                             hasStart = false;
+                            // 颜色赋值，过滤空区间，注意span不能复用需重建
                             if (start != end) {
                                 for (Object span : spans) {
-                                    //注意：span不能复用需重建
                                     text.setSpan(new ForegroundColorSpan(((Foreground) mark).mForegroundColor),
                                             start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                                 }
@@ -357,10 +356,11 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
                         }
                     }
                 }
+                // 已处理标识，不再处理
                 isHandle = true;
             }
         }
-        // 未处理的情况沿用之前处理方式
+        // step4: 未处理的情况沿用之前处理方式
         if (where != len && !isHandle) {
             for (Object span : spans) {
                 text.setSpan(span, where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -719,8 +719,9 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
                 //无匹配标签添加样式
                 Foreground foreground = getLast(text, Foreground.class);
                 if(foreground!=null){
-                    foreground.isStub = true;
-                    start(text, foreground);
+                    Foreground newForeground = new Foreground(foreground.mForegroundColor);
+                    newForeground.isStub = true;
+                    start(text, newForeground);
                 }
             }
 
@@ -749,8 +750,9 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
             //无匹配标签添加样式
             Foreground foreground = getLast(text, Foreground.class);
             if(foreground!=null) {
-                foreground.isStub = true;
-                start(text, foreground);
+                Foreground newForeground = new Foreground(foreground.mForegroundColor);
+                newForeground.isStub = true;
+                start(text, newForeground);
             }
         }
     }

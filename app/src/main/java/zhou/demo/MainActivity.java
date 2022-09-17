@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
 //        RichText.from(test3, true).into(textView1);
 //        RichText.from(test4, true).into(textView);
         RichText.from(xx, true).into(textView2);
+        Log.e("testRich", xx);
 //        textView.setText(Html.fromHtml(list_test, Html.FROM_HTML_MODE_LEGACY));
     }
 
@@ -144,17 +146,22 @@ public class MainActivity extends AppCompatActivity {
 
 
     String xx = "<p>" +
-//            "<span style=\"background-color: rgb(247, 150, 70);\">a</span>ha" +
-//            "<span style=\"background-color: rgb(75, 172, 198);\">sh" +
-//            "<span style=\"background-color: rgb(75, 172, 198); color: rgb(195, 214, 155);\">as</span>a</span>" +
             "<span style=\"color: rgb(147, 137, 83);\"><span style=\"background-color: rgb(75, 172, 198);\">按</span>" +
             "<span style=\"background-color: rgb(192, 80, 77);\">时</span></span>" +
             "<span style=\"background-color: rgb(192, 80, 77);\">发</span>" +
-//            "<span>操</span>" +
             "放</p>";
 
     String xx1 = "<p><span style=\"color: rgb(155, 187, 89);\">啊<span style=\"color: rgb(79, 129, 189);\">撒撒<span style=\"color: rgb(247, 150, 70);\">发生</span>发是</span>否</span></p>";
 
+    String xx2 = "<p>" +
+            "<span style=\"background-color: rgb(247, 150, 70);\">a</span>ha" +
+            "<span style=\"background-color: rgb(75, 172, 198);\">sh" +
+            "<span style=\"background-color: rgb(75, 172, 198); color: rgb(195, 214, 155);\">as</span>a</span>" +
+            "<span style=\"color: rgb(147, 137, 83);\"><span style=\"background-color: rgb(75, 172, 198);\">按</span>" +
+            "<span style=\"background-color: rgb(192, 80, 77);\">时</span></span>" +
+            "<span style=\"background-color: rgb(192, 80, 77);\">发</span>" +
+            "<span>操</span>" +
+            "放</p>";
 
     String testNew1 = "<p style=\"margin: 0px;  color: rgb(77, 222, 77); \">" +
             "<span style=\"font-family: PingFangSC-Medium, &quot;PingFang SC Medium&quot;, &quot;PingFang SC&quot;, sans-serif; color: rgb(242, 113, 142);\">抱睡</span>" +
