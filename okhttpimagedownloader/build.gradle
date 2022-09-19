@@ -30,8 +30,8 @@ android {
 
 dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
-//    compile project(':richtext')
-    compile 'com.zzhoujay.richtext:richtext:3.0.1'
+    compile project(':richtext')
+//    compile 'com.zzhoujay.richtext:richtext:3.0.1'
 }
 
 publish {

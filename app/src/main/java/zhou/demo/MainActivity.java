@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
 //        RichText.from(test3, true).into(textView1);
 //        RichText.from(test4, true).into(textView);
-        RichText.from(xx, true).into(textView2);
-        Log.e("testRich", xx);
+        RichText.from(test9, true).into(textView2);
+        Log.e("testRich", test9);
 //        textView.setText(Html.fromHtml(list_test, Html.FROM_HTML_MODE_LEGACY));
     }
 
