@@ -151,7 +151,7 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
     private static Pattern getTextDecorationPattern() {
         if (sTextDecorationPattern == null) {
             sTextDecorationPattern = Pattern.compile(
-                    "(?:\\s+|\\A|;\\s*)text-decoration\\s*:\\s*(\\S*)\\b");
+                    "(?:\\s+|\\A|;\\s*)text-decoration(?:-line)?\\s*:\\s*(\\S*)\\b");
         }
         return sTextDecorationPattern;
     }

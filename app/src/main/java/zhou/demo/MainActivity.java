@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
 //        RichText.from(test3, true).into(textView1);
 //        RichText.from(test4, true).into(textView);
-        RichText.from(test9, true).into(textView2);
-        Log.e("testRich", test9);
+        RichText.from(test10, true).into(textView2);
+        Log.e("testRich", test10);
 //        textView.setText(Html.fromHtml(list_test, Html.FROM_HTML_MODE_LEGACY));
     }
 
@@ -121,9 +121,11 @@ public class MainActivity extends AppCompatActivity {
     String test7 = "<p>啊啊首发申其<span style=\"background-color: rgb(155, 187, 89);\">购法发噶</span>他嘎洒算<span style=\"background-color: rgb(247, 150, 70);\">法</span>\n" +
             "</p><p><span style=\"background-color: rgb(247, 150, 70);\">a</span>ha<span style=\"background-color: rgb(75, 172, 198);\">shasa按</span><span style=\"background-color: rgb(192, 80, 77);\">时发</span>放</p>";
     //6 表情
-    String test8 = "<p>2342asda是\uD83D\uDE01我去饿</p>";
-    //7 图片(不支持)
+    String test8 = "<p>2342asda是\uD83D\uDE07我去饿</p>";
+    //7 图片
     String test9 = "<p><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg'/></p>";
+
+    String test10 = "<p><span style=\"background-color: rgb(255, 255, 255); text-decoration-line: line-through;\">12313213hj</span></p>";
 
     //特别的有序列表
     String testSpec = "<ol class=\" list-paddingleft-2\">\n" +
