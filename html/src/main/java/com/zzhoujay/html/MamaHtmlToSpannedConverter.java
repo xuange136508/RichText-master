@@ -289,15 +289,15 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
         int where = text.getSpanStart(mark);
         int len = text.length();
         boolean isHandle = false;
-        boolean needRemove = true;
+//        boolean needRemove = true;
         // 设置完颜色后，移除自添加的前景色
-        if (mark instanceof Foreground) {
-            if (((Foreground) mark).isStub) {
-                needRemove = false;
-            }
-        }
+//        if (mark instanceof Foreground) {
+//            if (((Foreground) mark).isStub) {
+//                needRemove = false;
+//            }
+//        }
         // 获取当前区间所有前景Span
-        Foreground[] objs1 = text.getSpans(0, text.length(), Foreground.class);
+//        Foreground[] objs1 = text.getSpans(0, text.length(), Foreground.class);
 //        if (needRemove) {
             text.removeSpan(mark);
 //        }

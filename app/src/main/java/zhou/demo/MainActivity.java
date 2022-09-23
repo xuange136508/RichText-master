@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
 //        RichText.from(test3, true).into(textView1);
 //        RichText.from(test4, true).into(textView);
-        RichText.from(test10, true).into(textView2);
-        Log.e("testRich", test10);
+        RichText.from(test11, true).into(textView2);
+        Log.e("testRich", test11);
 //        textView.setText(Html.fromHtml(list_test, Html.FROM_HTML_MODE_LEGACY));
     }
 
@@ -126,6 +126,26 @@ public class MainActivity extends AppCompatActivity {
     String test9 = "<p><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg'/></p>";
 
     String test10 = "<p><span style=\"background-color: rgb(255, 255, 255); text-decoration-line: line-through;\">12313213hj</span></p>";
+
+    String test11 =
+            "<p><strong>必须添加辅食啦?</strong></span></span></span></p>"+  //加了这行会把有序变成无序(Bug)
+            "<ol class=\" list-paddingleft-2\">" +
+            "    <li>" +
+            "        <p>" +
+            "            <span style=\"text-decoration-line: underline;\">吃翔</span>" +
+            "        </p>" +
+            "    </li>" +
+            "    <li>" +
+            "        <p>" +
+            "            <em><strong>aaaaaaa</strong></em>" +
+            "        </p>" +
+            "    </li>" +
+            "    <li>" +
+            "        <p>" +
+            "            <span style=\"background-color:#daa520;\">2323265</span>" +
+            "        </p>" +
+            "    </li>" +
+            "</ol>";
 
     //特别的有序列表
     String testSpec = "<ol class=\" list-paddingleft-2\">\n" +
