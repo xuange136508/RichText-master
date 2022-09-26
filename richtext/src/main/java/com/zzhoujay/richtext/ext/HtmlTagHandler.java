@@ -3,6 +3,7 @@ package com.zzhoujay.richtext.ext;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.Html;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.widget.TextView;
 
@@ -56,11 +57,11 @@ public class HtmlTagHandler implements Html.TagHandler {
         switch (tag.toLowerCase()) {
             case "ul":
                 list.push(true);
-//                out.append('\n');
+                out.append('\n');
                 break;
             case "ol":
                 list.push(false);
-//                out.append('\n');
+                out.append('\n');
                 break;
             case "pre":
                 break;
@@ -96,6 +97,17 @@ public class HtmlTagHandler implements Html.TagHandler {
                 }
                 MarkDownBulletSpan bulletSpan = new MarkDownBulletSpan(list.size() - 1, h1_color, i, textView);
                 out.setSpan(bulletSpan, start, out.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                //处理首行的换行符
+                if (out instanceof SpannableStringBuilder) {
+                    SpannableStringBuilder stringBuilder = (SpannableStringBuilder) out;
+                    if (stringBuilder.length() > 0) {
+                        char value = stringBuilder.charAt(0);
+                        if (value == '\n') {
+                            stringBuilder.replace(0, 1, "");
+                        }
+                    }
+                }
                 break;
         }
     }

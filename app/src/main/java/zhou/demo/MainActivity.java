@@ -96,13 +96,14 @@ public class MainActivity extends AppCompatActivity {
 //                })
 //                .into(textView);
 
+        //关闭缓存
 //        RichText.from(testNew8, true).cache(CacheType.none).into(textView);
 //        RichText.from(test1).into(textView1);
 
 
 //        RichText.from(test3, true).into(textView1);
 //        RichText.from(test4, true).into(textView);
-        RichText.from(test11, true).into(textView2);
+        RichText.from(testma, true).cache(CacheType.none).into(textView2);
         Log.e("testRich", test11);
 //        textView.setText(Html.fromHtml(list_test, Html.FROM_HTML_MODE_LEGACY));
     }
@@ -125,26 +126,44 @@ public class MainActivity extends AppCompatActivity {
     //7 图片
     String test9 = "<p><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg'/></p>";
 
-    String test10 = "<p><span style=\"background-color: rgb(255, 255, 255); text-decoration-line: line-through;\">12313213hj</span></p>";
+    //特殊的有序列表
+    String test10 =
+            "<p>开始</p>"+  //加这行会有序变成无序(Bug)
+            "<ol>" +
+            "    <li>" +
+            "        <span>A</span>" +
+            "    </li>" +
+            "    <li>" +
+            "        <span>B</span>" +
+            "    </li>" +
+            "</ol>";
 
+    //特殊的无序列表
     String test11 =
-            "<p><strong>必须添加辅食啦?</strong></span></span></span></p>"+  //加了这行会把有序变成无序(Bug)
-            "<ol class=\" list-paddingleft-2\">" +
+            "<p>开始</p>"+
+            "<ul>" +
             "    <li>" +
-            "        <p>" +
-            "            <span style=\"text-decoration-line: underline;\">吃翔</span>" +
-            "        </p>" +
+            "        <span>A</span>" +
             "    </li>" +
             "    <li>" +
-            "        <p>" +
-            "            <em><strong>aaaaaaa</strong></em>" +
-            "        </p>" +
+            "        <span>B</span>" +
             "    </li>" +
-            "    <li>" +
-            "        <p>" +
-            "            <span style=\"background-color:#daa520;\">2323265</span>" +
-            "        </p>" +
-            "    </li>" +
+            "</ul>";
+
+
+    String test12 = "<ol><li><p>" +
+            "新闻（消息）写作，不同于拉家常，也不同于写论文、写总结报告，它有自己的写作规律。规律之一就是：“立片言以居要”，“开门见山”，把最重要、最新鲜的事实放在最前头。这就是所谓的消息导语。它是消息开头的第一句或第一段。</p>" +
+            "</li></ol>";
+
+    String testma = "<p>\n" +
+            "        <span style=\"font-size:16px;\"><span style=\"color:#666666;\">第一口</span><strong style=\"caret-color: rgb(51, 51, 51); color: rgb(51, 51, 51); font-family: PingFangSC-Regular, &quot;PingFang SC&quot;, sans-serif; font-size: 14px;\"><a href=\"https://www.baidu.com\"><span style=\"color:#4d9eff;\">高铁米粉</span></a></strong><span style=\"color:#666666;\">，辅食从一勺高铁米粉开始由一种到多种，由稀到稠。</span></span><em style=\"color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px;\">&nbsp;</em></p>\n" +
+            "<ol>\n" +
+            "        <li>\n" +
+            "                <em style=\"color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px;\">213123131</em><strike style=\"color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px;\"><u>23<span style=\"background-color:#00ff00;\">45646546456</span></u></strike></li>\n" +
+            "        <li>\n" +
+            "                <span style=\"text-decoration-line: underline; color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px;\">123134654</span><em style=\"color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px;\"><strong>aaaaaaa</strong></em></li>\n" +
+            "        <li>\n" +
+            "                <span style=\"background-color: rgb(218, 165, 32); color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px;\">2323265</span></li>\n" +
             "</ol>";
 
     //特别的有序列表
