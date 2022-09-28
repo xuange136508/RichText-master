@@ -23,7 +23,8 @@ import java.util.List;
 
 
 /***
- * 文档：https://github.com/zzhoujay/RichText/wiki
+ * 代码原文档：https://github.com/zzhoujay/RichText/wiki
+ * 注意：要避免混淆
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 //        RichText.from(test3, true).into(textView1);
 //        RichText.from(test4, true).into(textView);
         RichText.from(testma, true).cache(CacheType.none).into(textView2);
-        Log.e("testRich", test11);
+        Log.e("testRich", testma);
 //        textView.setText(Html.fromHtml(list_test, Html.FROM_HTML_MODE_LEGACY));
     }
 
@@ -155,15 +156,11 @@ public class MainActivity extends AppCompatActivity {
             "新闻（消息）写作，不同于拉家常，也不同于写论文、写总结报告，它有自己的写作规律。规律之一就是：“立片言以居要”，“开门见山”，把最重要、最新鲜的事实放在最前头。这就是所谓的消息导语。它是消息开头的第一句或第一段。</p>" +
             "</li></ol>";
 
-    String testma = "<p>\n" +
-            "        <span style=\"font-size:16px;\"><span style=\"color:#666666;\">第一口</span><strong style=\"caret-color: rgb(51, 51, 51); color: rgb(51, 51, 51); font-family: PingFangSC-Regular, &quot;PingFang SC&quot;, sans-serif; font-size: 14px;\"><a href=\"https://www.baidu.com\"><span style=\"color:#4d9eff;\">高铁米粉</span></a></strong><span style=\"color:#666666;\">，辅食从一勺高铁米粉开始由一种到多种，由稀到稠。</span></span><em style=\"color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px;\">&nbsp;</em></p>\n" +
-            "<ol>\n" +
+    String testma = "<ol>\n" +
             "        <li>\n" +
-            "                <em style=\"color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px;\">213123131</em><strike style=\"color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px;\"><u>23<span style=\"background-color:#00ff00;\">45646546456</span></u></strike></li>\n" +
-            "        <li>\n" +
-            "                <span style=\"text-decoration-line: underline; color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px;\">123134654</span><em style=\"color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px;\"><strong>aaaaaaa</strong></em></li>\n" +
-            "        <li>\n" +
-            "                <span style=\"background-color: rgb(218, 165, 32); color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px;\">2323265</span></li>\n" +
+            "                <p>\n" +
+            "                        <strike><u><em><strong>新闻（消息）写作</strong></em></u></strike>，不同于拉家常，<a href=\"mmw://bMode?android_path=/app/b_mode&amp;ios_path=PHMMPrenatalForm/BModeUltrasoundDetailController\">也不同于写论文</a>、写总结报告，<span style=\"color:#ff0000;\">它有自己的写作规律</span>。<span style=\"font-size:16px;\"><strong>规律之一就</strong>是</span>：&ldquo;立片言以居要&rdquo;，&ldquo;开门见山&rdquo;，把最重要、最新鲜的事实放在最前头。这就是所谓的消息导语。它是消息开头的第一句或第一段。</p>\n" +
+            "        </li>\n" +
             "</ol>";
 
     //特别的有序列表
