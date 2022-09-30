@@ -154,8 +154,12 @@ public class RichText implements ImageGetterWrapper, ImageLoadNotify {
     }
 
     public static RichTextConfig.RichTextConfigBuild from(String source, RichType richType, boolean isSpec) {
+//        String newSource = source.replace("\n", "")
+//                .replace("\t", "")
+//                .replace("\r", "");
         return new RichTextConfig.RichTextConfigBuild(source, richType, isSpec);
     }
+
 
     void generateAndSet() {
         TextView textView = textViewWeakReference.get();

@@ -15,7 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.xie.rich.R;
 import com.zzhoujay.richtext.CacheType;
+import com.zzhoujay.richtext.LinkHolder;
 import com.zzhoujay.richtext.RichText;
+import com.zzhoujay.richtext.callback.LinkFixCallback;
 import com.zzhoujay.richtext.callback.OnUrlClickListener;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ import java.util.List;
 
 /***
  * 代码原文档：https://github.com/zzhoujay/RichText/wiki
+ * https://github.com/zzhoujay/Html
  * 注意：要避免混淆
  */
 public class MainActivity extends AppCompatActivity {
@@ -107,6 +110,24 @@ public class MainActivity extends AppCompatActivity {
         RichText.from(testma, true).cache(CacheType.none).into(textView2);
         Log.e("testRich", testma);
 //        textView.setText(Html.fromHtml(list_test, Html.FROM_HTML_MODE_LEGACY));
+
+
+
+        //配置内容富文本
+//        String content = "<p>啊实打实<a href=\"https://uutool.cn/ueditor/\" target=\"_self\" title=\"擦撒大苏打\">打算发撒撒</a>发生</p>";
+//        RichText.from(content).linkFix(new LinkFixCallback(){
+//
+//            @Override
+//            public void fix(LinkHolder holder) {
+//                //去除链接的下划线
+//                holder.setUnderLine(true);
+//            }
+//        }).urlClick(new OnUrlClickListener() {
+//            @Override
+//            public boolean urlClicked(String url) {
+//                return true;
+//            }
+//        }).into(textView2);
     }
 
 
@@ -126,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
     String test8 = "<p>2342asda是\uD83D\uDE07我去饿</p>";
     //7 图片
     String test9 = "<p><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg'/></p>";
+    String gif = "<p><img src=\"https://cdn6.xiaoshuxiong.com/data/images/hygj/worthBuy/16642500087359451629753.gif\"/></p>";
 
     //特殊的有序列表
     String test10 =
@@ -181,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
             "        </p>\n" +
             "    </li>\n" +
             "</ol>";
+
 
 
     String xx = "<p>" +
