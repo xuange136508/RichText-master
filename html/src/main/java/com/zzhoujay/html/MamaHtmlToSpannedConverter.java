@@ -1,5 +1,6 @@
 package com.zzhoujay.html;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -177,6 +178,13 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
         return sTextIndentPattern;
     }
 
+
+    public static int dp2px(final float dpValue) {
+        final float scale = Resources.getSystem().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+
     private static void appendNewlines(Editable text, int minNewline) {
         final int len = text.length();
 
@@ -313,65 +321,45 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
 //        if (needRemove) {
             text.removeSpan(mark);
 //        }
+
+        boolean[] stateArray = new boolean[text.length()];
+        List<String> spanIndex = new ArrayList<>();
         // step1：获取所有span的起始结束位置
         if (mark instanceof Foreground) {
-            ForegroundColorSpan[] objsTest = text.getSpans(where, text.length(), ForegroundColorSpan.class);
-            List<String> spanIndex = new ArrayList();
-            boolean[] stateArray = new boolean[text.length()];
-            for (Object objTest : objsTest) {
-                int startTest = text.getSpanStart(objTest);
-                int endTest = text.getSpanEnd(objTest);
-                spanIndex.add(startTest + "-" + endTest);
-                // Log.i("test", "startTest=" + startTest + " endTest=" + endTest);
-            }
-            // step2：将带有前景色的区间位置记录下来
-            if (spanIndex.size() > 0) {
-                List<String> resultArray = new ArrayList();
-                int tmpStart = where;
-                for (int i = 0; i < spanIndex.size(); i++) {
-                    String[] posArray = spanIndex.get(i).split("-");
-                    //  重新计算包含关系
-                    int start = Integer.valueOf(posArray[0]);
-                    int end = Integer.valueOf(posArray[1]);
-                    // 将span区间置为选中状态
-                    for (int j = start; j < end; j++) {
-                        stateArray[j] = true;
-                    }
-                }
-                // step3：遍历区间数组,对未赋值的区间进行处理
-                int start = 0;
-                int end;
-                boolean hasStart = false;
-                for (int i = where; i < stateArray.length; i++) {
-                    if (!stateArray[i] && (i != stateArray.length - 1)) {
-                        //找到span初始位置
-                        if (!hasStart) {
-                            start = i;
-                            hasStart = true;
-                        }
-                    } else {
-                        if (hasStart) {
-                            // 对span结束位置做边缘处理
-                            if ((i == stateArray.length - 1) && !stateArray[i]) {
-                                end = i + 1;
-                            } else {
-                                end = i;
-                            }
-                            hasStart = false;
-                            // 颜色赋值，过滤空区间，注意span不能复用需重建
-                            if (start != end) {
-                                for (Object span : spans) {
-                                    text.setSpan(new ForegroundColorSpan(((Foreground) mark).mForegroundColor),
-                                            start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                }
-                            }
-                        }
-                    }
-                }
-                // 已处理标识，不再处理
-                isHandle = true;
-            }
+            ForegroundColorSpan[] colorsSpans = text.getSpans(where, text.length(), ForegroundColorSpan.class);
+            spanIndex = getSpansScope(text, colorsSpans);
+
+        /**单独处理字体大小覆盖问题*/
+        }else if (mark instanceof FontSize) {
+            AbsoluteSizeSpan[] sizeSpans = text.getSpans(where, text.length(), AbsoluteSizeSpan.class);
+            spanIndex = getSpansScope(text, sizeSpans);
+
+        /**单独处理背景色覆盖问题*/
+        }else if (mark instanceof Background) {
+            BackgroundColorSpan[] backgroundSpans = text.getSpans(where, text.length(), BackgroundColorSpan.class);
+            spanIndex = getSpansScope(text, backgroundSpans);
         }
+
+        // step2：将带有前景色的区间位置记录下来
+        if (spanIndex.size() > 0) {
+            List<String> resultArray = new ArrayList();
+            int tmpStart = where;
+            for (int i = 0; i < spanIndex.size(); i++) {
+                String[] posArray = spanIndex.get(i).split("-");
+                //  重新计算包含关系
+                int start = Integer.valueOf(posArray[0]);
+                int end = Integer.valueOf(posArray[1]);
+                // 将span区间置为选中状态
+                for (int j = start; j < end; j++) {
+                    stateArray[j] = true;
+                }
+            }
+            // step3：遍历区间数组,对未赋值的区间进行处理
+            evaluateSpans(stateArray, where, text, mark, spans);
+            // 已处理标识，不再处理
+            isHandle = true;
+        }
+
         // step4: 未处理的情况沿用之前处理方式
         if (where != len && !isHandle) {
             for (Object span : spans) {
@@ -379,6 +367,68 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
             }
         }
     }
+
+    /**获取已赋值spans区间*/
+    private static List<String> getSpansScope(Spannable text, Object[] spans){
+        List<String> spanIndex = new ArrayList();
+        for (Object objTest : spans) {
+            int startTest = text.getSpanStart(objTest);
+            int endTest = text.getSpanEnd(objTest);
+            spanIndex.add(startTest + "-" + endTest);
+            // Log.i("test", "startTest=" + startTest + " endTest=" + endTest);
+        }
+        return spanIndex;
+    }
+
+
+    /**对未赋值的区间进行处理*/
+    private static void evaluateSpans(
+            boolean[] stateArray,
+            int where,
+            Spannable text,
+            Object mark,
+            Object... spans) {
+        int start = 0;
+        int end;
+        boolean hasStart = false;
+        for (int i = where; i < stateArray.length; i++) {
+            if (!stateArray[i] && (i != stateArray.length - 1)) {
+                //找到span初始位置
+                if (!hasStart) {
+                    start = i;
+                    hasStart = true;
+                }
+            } else {
+                if (hasStart) {
+                    // 对span结束位置做边缘处理
+                    if ((i == stateArray.length - 1) && !stateArray[i]) {
+                        end = i + 1;
+                    } else {
+                        end = i;
+                    }
+                    hasStart = false;
+                    // 颜色赋值，过滤空区间，注意span不能复用需重建
+                    if (start != end) {
+                        for (Object span : spans) {
+                            if (mark instanceof Foreground) {
+                                text.setSpan(new ForegroundColorSpan(((Foreground) mark).mForegroundColor),
+                                        start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                            } else if (mark instanceof FontSize) {
+                                text.setSpan(new AbsoluteSizeSpan(dp2px(((FontSize) mark).fontSize)),
+                                        start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            } else if (mark instanceof Background) {
+                                text.setSpan(new BackgroundColorSpan(((Background) mark).mBackgroundColor),
+                                        start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     private static void start(Editable text, Object mark) {
         int len = text.length();
@@ -432,9 +482,10 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
         if (fs != null) {
             //setSpanFromMark(text, fs, new TextAppearanceSpan(null, Typeface.NORMAL, fs.fontSize, null, null));
             //setSpanFromMark(text, fs, new RelativeSizeSpan(2.0f));
-            setSpanFromMark(text, fs, new AbsoluteSizeSpan(fs.fontSize));
+            setSpanFromMark(text, fs, new AbsoluteSizeSpan(dp2px(fs.fontSize)));
         }
     }
+
 
     private static void startImg(Editable text, Attributes attributes, android.text.Html.ImageGetter img) {
         String src = attributes.getValue("", "src");
@@ -769,9 +820,10 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
             m = getFontSizePattern().matcher(style);
             if (m.find()) {
                 String fontSize = m.group(1);
-                int size = Integer.valueOf(fontSize.replace("px",""));
-                start(text, new FontSize(size));
-                //start(text, new TextAppearanceSpan(null, Typeface.NORMAL, size, null, null));
+                if(!TextUtils.isEmpty(fontSize)){
+                    int size = Integer.valueOf(fontSize.replace("px",""));
+                    start(text, new FontSize(size));
+                }
             }
 
         }else{

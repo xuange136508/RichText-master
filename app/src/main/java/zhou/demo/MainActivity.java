@@ -107,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
 
 //        RichText.from(test3, true).into(textView1);
 //        RichText.from(test4, true).into(textView);
-        RichText.from(test13, true).cache(CacheType.none).into(textView2);
-        Log.e("testRich", test13);
+        RichText.from(xx2,true).cache(CacheType.none).into(textView2);
+        Log.e("testRich", xx2);
 //        textView.setText(Html.fromHtml(list_test, Html.FROM_HTML_MODE_LEGACY));
 
 
@@ -148,9 +148,12 @@ public class MainActivity extends AppCompatActivity {
     //7 图片
     String test9 = "<p><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg'/></p>";
     String gif = "<p><img src=\"https://cdn6.xiaoshuxiong.com/data/images/hygj/worthBuy/16642500087359451629753.gif\"/></p>";
-    //8 文字大小
-    String test13 = "<p>啊实打实大<span style=\"font-size: 24px;\">苏打实打</span>实的</p>";
 
+    //8 文字大小
+    String test13 = "<p>大苏打<span style=\"font-size: 20px;\">阿萨<span style=\"font-size: 8px;\">啊是大</span></span></p>";
+    String test14 = "<p>啊是<span style=\"font-size: 20px;\">大任<span style=\"font-size: 10px;\">何话</span>推荐</span>宽容</p>";
+    //特殊情况的颜色背景
+    String test7_spec = "<p>啊实打实大<span style=\"background-color: rgb(79, 129, 189);\">苏打<span style=\"background-color: rgb(247, 150, 70);\">暗杀大苏打</span></span></p>";
 
     //特殊的有序列表
     String test10 =
