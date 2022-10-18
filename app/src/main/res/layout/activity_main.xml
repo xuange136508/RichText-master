@@ -20,6 +20,7 @@
             android:textIsSelectable="false"
             android:visibility="gone"
             android:background="#fff"
+            android:textSize="15sp"
            />
 
         <TextView
@@ -30,6 +31,7 @@
             android:textIsSelectable="false"
             android:background="#fff"
             android:visibility="gone"
+            android:textSize="15sp"
             />
 
         <TextView
@@ -38,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff"
+            android:textSize="15sp"
             android:textIsSelectable="false" />
 
 

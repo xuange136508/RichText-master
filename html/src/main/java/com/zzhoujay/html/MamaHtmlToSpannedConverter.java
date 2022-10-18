@@ -10,6 +10,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.AbsoluteSizeSpan;
 import android.text.style.AlignmentSpan;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
@@ -20,6 +21,7 @@ import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.SubscriptSpan;
 import android.text.style.SuperscriptSpan;
+import android.text.style.TextAppearanceSpan;
 import android.text.style.TypefaceSpan;
 import android.text.style.URLSpan;
 import android.text.style.UnderlineSpan;
@@ -73,6 +75,7 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
     private static Pattern sArgbColorPattern;
     private static Pattern sHexColorPattern;
     private static Pattern sTextIndentPattern;
+    private static Pattern sFontSizePattern;
 
     static {
         sColorMap = new HashMap<>();
@@ -146,6 +149,15 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
                     "(?:\\s+|\\A|;\\s*)background(?:-color)?\\s*:\\s*(.*)\\b");
         }
         return sBackgroundColorPattern;
+    }
+
+
+    private static Pattern getFontSizePattern() {
+        if (sFontSizePattern == null) {
+            sFontSizePattern = Pattern.compile(
+                    "(?:\\s+|\\A|;\\s*)font-size\\s*:\\s*(.*)\\b");
+        }
+        return sFontSizePattern;
     }
 
     private static Pattern getTextDecorationPattern() {
@@ -414,6 +426,13 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
         Foreground f = getLast(text, Foreground.class);
         if (f != null) {
             setSpanFromMark(text, f, new ForegroundColorSpan(f.mForegroundColor));
+        }
+
+        FontSize fs = getLast(text, FontSize.class);
+        if (fs != null) {
+            //setSpanFromMark(text, fs, new TextAppearanceSpan(null, Typeface.NORMAL, fs.fontSize, null, null));
+            //setSpanFromMark(text, fs, new RelativeSizeSpan(2.0f));
+            setSpanFromMark(text, fs, new AbsoluteSizeSpan(fs.fontSize));
         }
     }
 
@@ -746,6 +765,15 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
                     start(text, new Underline());
                 }
             }
+
+            m = getFontSizePattern().matcher(style);
+            if (m.find()) {
+                String fontSize = m.group(1);
+                int size = Integer.valueOf(fontSize.replace("px",""));
+                start(text, new FontSize(size));
+                //start(text, new TextAppearanceSpan(null, Typeface.NORMAL, size, null, null));
+            }
+
         }else{
             //无匹配标签添加样式
             Foreground foreground = getLast(text, Foreground.class);
@@ -929,6 +957,13 @@ class MamaHtmlToSpannedConverter implements ContentHandler {
     }
 
     private static class Code {
+    }
+
+    private static class FontSize {
+        private int fontSize;
+        FontSize(int fs) {
+            fontSize = fs;
+        }
     }
 
     private static class Font {

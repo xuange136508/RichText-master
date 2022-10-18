@@ -107,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
 
 //        RichText.from(test3, true).into(textView1);
 //        RichText.from(test4, true).into(textView);
-        RichText.from(testma, true).cache(CacheType.none).into(textView2);
-        Log.e("testRich", testma);
+        RichText.from(test13, true).cache(CacheType.none).into(textView2);
+        Log.e("testRich", test13);
 //        textView.setText(Html.fromHtml(list_test, Html.FROM_HTML_MODE_LEGACY));
 
 
@@ -148,6 +148,9 @@ public class MainActivity extends AppCompatActivity {
     //7 图片
     String test9 = "<p><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg'/></p>";
     String gif = "<p><img src=\"https://cdn6.xiaoshuxiong.com/data/images/hygj/worthBuy/16642500087359451629753.gif\"/></p>";
+    //8 文字大小
+    String test13 = "<p>啊实打实大<span style=\"font-size: 24px;\">苏打实打</span>实的</p>";
+
 
     //特殊的有序列表
     String test10 =
